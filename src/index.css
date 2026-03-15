@@ -1,3 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --primary-bg: #eff6ff;
+  --success: #16a34a;
+  --success-bg: #f0fdf4;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --warning: #f59e0b;
+  --warning-bg: #fffbeb;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,26 +36,347 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, sans-serif;
-  background: #f5f5f5;
-  color: #333;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-800);
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 a {
+  color: var(--primary);
   text-decoration: none;
+  transition: color 0.2s;
 }
-
 a:hover {
-  text-decoration: underline;
+  color: var(--primary-dark);
 }
 
-select:focus {
-  outline: 2px solid #4A90D9;
-  border-color: #4A90D9;
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-h1 {
-  color: #1a1a2e;
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+.slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, #6366f1 100%);
+  color: white;
+  padding: 16px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+.header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header p {
+  font-size: 13px;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+.btn-outline {
+  background: white;
+  color: var(--gray-700);
+  border: 1.5px solid var(--gray-200);
+}
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-bg);
+}
+
+/* Select */
+.select-wrapper {
+  position: relative;
+}
+.select-wrapper select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200);
+  background: white;
+  color: var(--gray-800);
+  font-family: inherit;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.select-wrapper select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+.select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-400);
+  pointer-events: none;
+  font-size: 14px;
+}
+
+/* Floor tabs */
+.floor-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px;
+}
+.floor-tab {
+  flex: 1;
+  min-width: 56px;
+  padding: 10px 4px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  background: white;
+  color: var(--gray-600);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  font-family: inherit;
+}
+.floor-tab:hover {
+  border-color: var(--primary-light);
+  color: var(--primary);
+}
+.floor-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+.floor-tab.on-path {
+  border-color: var(--primary-light);
+  background: var(--primary-bg);
+  color: var(--primary);
+}
+
+/* Route info badge */
+.route-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+}
+.route-info.success {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid #bbf7d0;
+}
+.route-info.multi {
+  background: var(--primary-bg);
+  color: var(--primary);
+  border: 1px solid #bfdbfe;
+}
+
+/* Landing */
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+  padding: 40px 20px;
+  text-align: center;
+}
+.landing-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--primary), #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-lg);
+  animation: pulse 2s ease-in-out infinite;
+}
+.landing h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--gray-900);
+}
+.landing p {
+  font-size: 15px;
+  color: var(--gray-500);
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+/* Map container */
+.map-container {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* QR page */
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.qr-card {
+  background: white;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+  transition: all 0.2s;
+  page-break-inside: avoid;
+}
+.qr-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.qr-card.room {
+  border-color: var(--gray-300);
+}
+.qr-card.stairs {
+  border-color: var(--warning);
+}
+.qr-card h3 {
+  font-size: 12px;
+  color: var(--gray-400);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.qr-card .qr-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 4px 0 12px;
+}
+.qr-card .qr-url {
+  font-size: 9px;
+  color: var(--gray-400);
+  word-break: break-all;
+  margin-top: 8px;
+}
+.qr-card .qr-hint {
+  font-size: 11px;
+  color: var(--gray-500);
+  margin-top: 6px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-700);
+  margin: 24px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--primary);
+  display: inline-block;
+}
+
+/* Filters bar */
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filters select {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200);
+  font-size: 13px;
+  font-family: inherit;
+  background: white;
+  color: var(--gray-700);
+  cursor: pointer;
+}
+.filters select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .header { padding: 12px 16px; }
+  .header h1 { font-size: 18px; }
+  .card { padding: 14px; margin-bottom: 10px; }
+  .qr-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .qr-card { padding: 14px 10px; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  .header { position: static; }
+  .qr-card { break-inside: avoid; border: 2px solid #333 !important; }
+  body { background: white; }
 }
