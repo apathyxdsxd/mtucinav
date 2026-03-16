@@ -62,10 +62,12 @@ export default function NavigatePage() {
     return (
       <>
         <div className="header">
-          <h1>🏫 МТУЦИ Навигатор</h1>
+          <h1><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="МТУСИ" style={{ height: 28, filter: 'brightness(0) invert(1)' }} /> МТУСИ Навигатор</h1>
         </div>
         <div className="landing fade-in">
-          <div className="landing-icon">📍</div>
+          <div className="landing-icon" style={{ background: 'white', padding: 14 }}>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="МТУСИ" style={{ width: 52, height: 52 }} />
+          </div>
           <h2>Добро пожаловать!</h2>
           <p>
             Отсканируйте QR-код в здании университета, чтобы определить ваше местоположение и построить маршрут.
@@ -91,7 +93,7 @@ export default function NavigatePage() {
     return (
       <>
         <div className="header">
-          <h1>🏫 МТУЦИ Навигатор</h1>
+          <h1><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="МТУСИ" style={{ height: 28, filter: 'brightness(0) invert(1)' }} /> МТУСИ Навигатор</h1>
         </div>
         <div className="landing fade-in">
           <div className="landing-icon" style={{ background: 'linear-gradient(135deg, #ef4444, #dc2626)' }}>❌</div>
@@ -107,7 +109,7 @@ export default function NavigatePage() {
     <div className="fade-in">
       {/* Header */}
       <div className="header">
-        <h1>🏫 МТУЦИ Навигатор</h1>
+        <h1><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="МТУСИ" style={{ height: 28, filter: 'brightness(0) invert(1)' }} /> МТУСИ Навигатор</h1>
         <p>📍 Этаж {currentNode.floor}, {locationText}</p>
       </div>
 

@@ -41,8 +41,8 @@ export default function FloorMap({
             <stop offset="100%" stopColor="#e2e8f0" />
           </linearGradient>
           <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="100%" stopColor="#6366f1" />
+            <stop offset="0%" stopColor="#3b3291" />
+            <stop offset="100%" stopColor="#5046a5" />
           </linearGradient>
           <linearGradient id="stairsGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#f59e0b" />
@@ -60,7 +60,7 @@ export default function FloorMap({
             <feDropShadow dx="0" dy="1" stdDeviation="2" floodOpacity="0.1" />
           </filter>
           <filter id="glowBlue">
-            <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#3b82f6" floodOpacity="0.4" />
+            <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#3b3291" floodOpacity="0.4" />
           </filter>
           <filter id="glowGreen">
             <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#22c55e" floodOpacity="0.5" />
@@ -171,7 +171,7 @@ export default function FloorMap({
             textColor = 'white';
           } else if (isOnPath) {
             fill = '#eff6ff';
-            stroke = '#3b82f6';
+            stroke = '#3b3291';
           }
 
           return (
@@ -240,13 +240,15 @@ export default function FloorMap({
         {/* Legend */}
         <g transform="translate(24, 462)">
           <rect x={0} y={0} width={12} height={12} rx={3} fill="url(#currentGrad)" />
-          <text x={17} y={10} fontSize="11" fill="#6b7280" fontWeight="500">Вы здесь</text>
-          <rect x={90} y={0} width={12} height={12} rx={3} fill="url(#destGrad)" />
-          <text x={107} y={10} fontSize="11" fill="#6b7280" fontWeight="500">Цель</text>
-          <rect x={160} y={0} width={12} height={12} rx={3} fill="url(#stairsGrad)" />
-          <text x={177} y={10} fontSize="11" fill="#6b7280" fontWeight="500">Лестница</text>
-          <line x1={250} y1={6} x2={274} y2={6} stroke="url(#pathGrad)" strokeWidth={3} strokeDasharray="5 3" strokeLinecap="round" />
-          <text x={280} y={10} fontSize="11" fill="#6b7280" fontWeight="500">Маршрут</text>
+          <text x={16} y={10} fontSize="10" fill="#6b7280" fontWeight="500">Вы здесь</text>
+          <rect x={80} y={0} width={12} height={12} rx={3} fill="url(#destGrad)" />
+          <text x={96} y={10} fontSize="10" fill="#6b7280" fontWeight="500">Цель</text>
+          <rect x={135} y={0} width={12} height={12} rx={3} fill="url(#stairsGrad)" />
+          <text x={151} y={10} fontSize="10" fill="#6b7280" fontWeight="500">Лестница</text>
+          <rect x={220} y={0} width={12} height={12} rx={3} fill="url(#pathGrad)" />
+          <text x={236} y={10} fontSize="10" fill="#6b7280" fontWeight="500">На маршруте</text>
+          <rect x={320} y={1} width={30} height={10} rx={2} fill="none" stroke="url(#pathGrad)" strokeWidth={2} strokeDasharray="4 3" />
+          <text x={356} y={10} fontSize="10" fill="#6b7280" fontWeight="500">Маршрут</text>
         </g>
       </svg>
     </div>

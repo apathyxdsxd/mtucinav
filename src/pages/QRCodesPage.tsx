@@ -26,7 +26,7 @@ export default function QRCodesPage() {
   return (
     <div className="fade-in">
       <div className="header">
-        <h1>🏫 МТУЦИ Навигатор</h1>
+        <h1><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="МТУСИ" style={{ height: 28, filter: 'brightness(0) invert(1)' }} /> МТУСИ Навигатор</h1>
         <p>QR-коды для размещения в здании</p>
       </div>
 
@@ -73,7 +73,7 @@ export default function QRCodesPage() {
                   const isRoom = !!qr.nodeId.match(/f\d+-\d+/);
                   return (
                     <div key={qr.id} className={`qr-card ${isRoom ? 'room' : 'stairs'}`}>
-                      <h3>МТУЦИ Навигатор</h3>
+                      <h3>МТУСИ Навигатор</h3>
                       <div className="qr-label">{qr.label}</div>
                       <QRCodeSVG
                         value={url}
