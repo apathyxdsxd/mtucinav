@@ -32,9 +32,12 @@ export default function QRCodesPage() {
 
       <div style={{ padding: '16px 20px 40px', maxWidth: 960, margin: '0 auto' }}>
         <div className="card no-print">
-          <p style={{ fontSize: 13, color: 'var(--gray-500)', marginBottom: 12 }}>
-            Всего: <strong>{qrPoints.length}</strong> кодов ({totalRooms} аудиторий + {totalOther} коридоров/лестниц) &middot; URL: <code style={{ fontSize: 11, background: 'var(--gray-100)', padding: '2px 6px', borderRadius: 4 }}>{baseUrl}</code>
-          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14, alignItems: 'center' }}>
+            <span className="stats-badge">🏫 {qrPoints.length} QR-кодов</span>
+            <span className="stats-badge">📚 {totalRooms} аудиторий</span>
+            <span className="stats-badge">🚶 {totalOther} узлов</span>
+            <code style={{ fontSize: 11, background: 'var(--primary-bg)', color: 'var(--primary-dark)', padding: '4px 8px', borderRadius: 6, fontWeight: 600, marginLeft: 4 }}>{baseUrl}</code>
+          </div>
 
           <div className="filters">
             <select

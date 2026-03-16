@@ -65,17 +65,17 @@ export default function NavigatePage() {
           <h1><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="МТУСИ" style={{ height: 28, filter: 'brightness(0) invert(1)' }} /> МТУСИ Навигатор</h1>
         </div>
         <div className="landing fade-in">
-          <div className="landing-icon" style={{ background: 'white', padding: 14 }}>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="МТУСИ" style={{ width: 52, height: 52 }} />
+          <div className="landing-icon">
+            🗺️
           </div>
           <h2>Добро пожаловать!</h2>
           <p>
             Отсканируйте QR-код в здании университета, чтобы определить ваше местоположение и построить маршрут.
           </p>
-          <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 10, width: '100%', maxWidth: 280 }}>
-            <div className="card" style={{ textAlign: 'center', padding: 20 }}>
-              <div style={{ fontSize: 32, marginBottom: 8 }}>📱</div>
-              <p style={{ fontSize: 14, color: 'var(--gray-500)' }}>
+          <div style={{ marginTop: 28, display: 'flex', flexDirection: 'column', gap: 12, width: '100%', maxWidth: 300 }}>
+            <div className="card" style={{ textAlign: 'center', padding: 22, border: '2px solid var(--primary-bg-deep)' }}>
+              <div style={{ fontSize: 36, marginBottom: 10 }}>📱</div>
+              <p style={{ fontSize: 14, color: 'var(--gray-500)', fontWeight: 500, lineHeight: 1.5 }}>
                 Наведите камеру телефона на QR-код рядом с вами
               </p>
             </div>
@@ -96,10 +96,10 @@ export default function NavigatePage() {
           <h1><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="МТУСИ" style={{ height: 28, filter: 'brightness(0) invert(1)' }} /> МТУСИ Навигатор</h1>
         </div>
         <div className="landing fade-in">
-          <div className="landing-icon" style={{ background: 'linear-gradient(135deg, #ef4444, #dc2626)' }}>❌</div>
+          <div className="landing-icon" style={{ background: 'linear-gradient(135deg, #E11D48, #F43F5E)' }}>❌</div>
           <h2>Точка не найдена</h2>
-          <p>QR-код содержит неизвестную локацию: <code style={{ background: 'var(--gray-100)', padding: '2px 6px', borderRadius: 4, fontSize: 13 }}>{locParam}</code></p>
-          <a href="/" className="btn btn-primary" style={{ marginTop: 16 }}>На главную</a>
+          <p>QR-код содержит неизвестную локацию: <code style={{ background: 'var(--primary-bg)', padding: '2px 8px', borderRadius: 6, fontSize: 13, color: 'var(--primary-dark)', fontWeight: 600 }}>{locParam}</code></p>
+          <a href="/" className="btn btn-primary" style={{ marginTop: 20 }}>На главную</a>
         </div>
       </>
     );
@@ -116,7 +116,7 @@ export default function NavigatePage() {
       <div style={{ padding: '12px 16px 24px', maxWidth: 920, margin: '0 auto' }}>
         {/* Destination selector */}
         <div className="card">
-          <label style={{ fontWeight: 600, fontSize: 14, color: 'var(--gray-600)', marginBottom: 8, display: 'block' }}>
+          <label style={{ fontWeight: 700, fontSize: 13, color: 'var(--primary-dark)', marginBottom: 8, display: 'block', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Куда вам нужно?
           </label>
           <div className="select-wrapper">

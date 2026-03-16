@@ -36,39 +36,43 @@ export default function FloorMap({
         {/* Background */}
         <defs>
           <linearGradient id="corridorGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#e2e8f0" />
-            <stop offset="50%" stopColor="#f1f5f9" />
-            <stop offset="100%" stopColor="#e2e8f0" />
+            <stop offset="0%" stopColor="#EDE9FE" />
+            <stop offset="50%" stopColor="#F5F3FF" />
+            <stop offset="100%" stopColor="#EDE9FE" />
           </linearGradient>
           <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3b3291" />
-            <stop offset="100%" stopColor="#5046a5" />
+            <stop offset="0%" stopColor="#6D28D9" />
+            <stop offset="100%" stopColor="#8B5CF6" />
           </linearGradient>
           <linearGradient id="stairsGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#f59e0b" />
-            <stop offset="100%" stopColor="#d97706" />
+            <stop offset="0%" stopColor="#F59E0B" />
+            <stop offset="100%" stopColor="#D97706" />
           </linearGradient>
           <linearGradient id="currentGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#22c55e" />
-            <stop offset="100%" stopColor="#16a34a" />
+            <stop offset="0%" stopColor="#10B981" />
+            <stop offset="100%" stopColor="#059669" />
           </linearGradient>
           <linearGradient id="destGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#ef4444" />
-            <stop offset="100%" stopColor="#dc2626" />
+            <stop offset="0%" stopColor="#F43F5E" />
+            <stop offset="100%" stopColor="#E11D48" />
+          </linearGradient>
+          <linearGradient id="roomGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="100%" stopColor="#FAFAFE" />
           </linearGradient>
           <filter id="roomShadow">
-            <feDropShadow dx="0" dy="1" stdDeviation="2" floodOpacity="0.1" />
+            <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#7C3AED" floodOpacity="0.08" />
           </filter>
           <filter id="glowBlue">
-            <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#3b3291" floodOpacity="0.4" />
+            <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#7C3AED" floodOpacity="0.5" />
           </filter>
           <filter id="glowGreen">
-            <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#22c55e" floodOpacity="0.5" />
+            <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#10B981" floodOpacity="0.55" />
           </filter>
         </defs>
 
         {/* Floor label */}
-        <text x="440" y="30" textAnchor="middle" fontSize="17" fontWeight="700" fill="#94a3b8" letterSpacing="1">
+        <text x="440" y="30" textAnchor="middle" fontSize="15" fontWeight="800" fill="#A78BFA" letterSpacing="2">
           ЭТАЖ {floor}
         </text>
 
@@ -141,7 +145,7 @@ export default function FloorMap({
                 />
               ))}
               {isCurrent && (
-                <text x={s.x} y={s.y - 36} textAnchor="middle" fontSize="11" fill="#16a34a" fontWeight="700">
+                <text x={s.x} y={s.y - 36} textAnchor="middle" fontSize="11" fill="#059669" fontWeight="800">
                   ● ВЫ ЗДЕСЬ
                 </text>
               )}
@@ -155,23 +159,23 @@ export default function FloorMap({
           const isDestination = room.id === destinationNodeId;
           const isOnPath = floorPathNodes.some((n) => n.id === room.id);
 
-          let fill = 'white';
-          let stroke = '#d1d5db';
-          let textColor = '#374151';
+          let fill = 'url(#roomGrad)';
+          let stroke = '#DDD6FE';
+          let textColor = '#3F3F46';
           let filterAttr = 'url(#roomShadow)';
 
           if (isCurrent) {
             fill = 'url(#currentGrad)';
-            stroke = '#16a34a';
+            stroke = '#059669';
             textColor = 'white';
             filterAttr = 'url(#glowGreen)';
           } else if (isDestination) {
             fill = 'url(#destGrad)';
-            stroke = '#dc2626';
+            stroke = '#E11D48';
             textColor = 'white';
           } else if (isOnPath) {
-            fill = '#eff6ff';
-            stroke = '#3b3291';
+            fill = '#F5F3FF';
+            stroke = '#7C3AED';
           }
 
           return (
@@ -203,12 +207,12 @@ export default function FloorMap({
                 {room.label}
               </text>
               {isCurrent && (
-                <text x={room.x} y={room.y + 20} textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.9)" fontWeight="600" letterSpacing="0.5">
+                <text x={room.x} y={room.y + 20} textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.95)" fontWeight="700" letterSpacing="0.8">
                   ● ВЫ ЗДЕСЬ
                 </text>
               )}
               {isDestination && (
-                <text x={room.x} y={room.y + 20} textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.9)" fontWeight="600" letterSpacing="0.5">
+                <text x={room.x} y={room.y + 20} textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.95)" fontWeight="700" letterSpacing="0.8">
                   ◎ ЦЕЛЬ
                 </text>
               )}
@@ -225,11 +229,11 @@ export default function FloorMap({
                 cx={c.x}
                 cy={c.y}
                 r={isCurrent ? 10 : 4}
-                fill={isCurrent ? 'url(#currentGrad)' : '#cbd5e1'}
+                fill={isCurrent ? 'url(#currentGrad)' : '#C4B5FD'}
                 filter={isCurrent ? 'url(#glowGreen)' : undefined}
               />
               {isCurrent && (
-                <text x={c.x} y={c.y - 18} textAnchor="middle" fontSize="11" fill="#16a34a" fontWeight="700">
+                <text x={c.x} y={c.y - 18} textAnchor="middle" fontSize="11" fill="#059669" fontWeight="800">
                   ● ВЫ ЗДЕСЬ
                 </text>
               )}
@@ -240,15 +244,15 @@ export default function FloorMap({
         {/* Legend */}
         <g transform="translate(24, 462)">
           <rect x={0} y={0} width={12} height={12} rx={3} fill="url(#currentGrad)" />
-          <text x={16} y={10} fontSize="10" fill="#6b7280" fontWeight="500">Вы здесь</text>
-          <rect x={80} y={0} width={12} height={12} rx={3} fill="url(#destGrad)" />
-          <text x={96} y={10} fontSize="10" fill="#6b7280" fontWeight="500">Цель</text>
-          <rect x={135} y={0} width={12} height={12} rx={3} fill="url(#stairsGrad)" />
-          <text x={151} y={10} fontSize="10" fill="#6b7280" fontWeight="500">Лестница</text>
-          <rect x={220} y={0} width={12} height={12} rx={3} fill="url(#pathGrad)" />
-          <text x={236} y={10} fontSize="10" fill="#6b7280" fontWeight="500">На маршруте</text>
-          <rect x={320} y={1} width={30} height={10} rx={2} fill="none" stroke="url(#pathGrad)" strokeWidth={2} strokeDasharray="4 3" />
-          <text x={356} y={10} fontSize="10" fill="#6b7280" fontWeight="500">Маршрут</text>
+          <text x={16} y={10} fontSize="10" fill="#71717A" fontWeight="600">Вы здесь</text>
+          <rect x={85} y={0} width={12} height={12} rx={3} fill="url(#destGrad)" />
+          <text x={101} y={10} fontSize="10" fill="#71717A" fontWeight="600">Цель</text>
+          <rect x={140} y={0} width={12} height={12} rx={3} fill="url(#stairsGrad)" />
+          <text x={156} y={10} fontSize="10" fill="#71717A" fontWeight="600">Лестница</text>
+          <rect x={228} y={0} width={12} height={12} rx={3} fill="url(#pathGrad)" />
+          <text x={244} y={10} fontSize="10" fill="#71717A" fontWeight="600">На маршруте</text>
+          <rect x={330} y={1} width={30} height={10} rx={2} fill="none" stroke="url(#pathGrad)" strokeWidth={2} strokeDasharray="4 3" />
+          <text x={366} y={10} fontSize="10" fill="#71717A" fontWeight="600">Маршрут</text>
         </g>
       </svg>
     </div>
