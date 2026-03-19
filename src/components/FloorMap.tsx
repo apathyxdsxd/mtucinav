@@ -113,9 +113,17 @@ export default function FloorMap({
           </g>
         ))}
 
-        {/* Path overlay */}
+        {/* Path overlay — between corridors and rooms/stairs */}
         {pathLine && (
-          <g filter="url(#glowPurple)">
+          <g>
+            <polyline
+              points={pathLine}
+              fill="none"
+              stroke="rgba(168,85,247,0.25)"
+              strokeWidth={8}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
             <polyline
               points={pathLine}
               fill="none"
@@ -124,6 +132,7 @@ export default function FloorMap({
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeDasharray="10 6"
+              filter="url(#glowPurple)"
             >
               <animate
                 attributeName="stroke-dashoffset"

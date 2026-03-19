@@ -25,3 +25,8 @@ dist-ssr
 
 .vercel
 .claude
+
+# Backend
+backend/data/model.joblib
+__pycache__
+*.pyc

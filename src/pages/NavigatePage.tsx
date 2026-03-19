@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import FloorMap from '../components/FloorMap';
+import NLPSearch from '../components/NLPSearch';
 import { rooms, qrPoints, getNodeById } from '../data/floors';
 import { findPath, type PathResult } from '../utils/pathfinding';
 
@@ -122,10 +123,18 @@ export default function NavigatePage() {
       </div>
 
       <div style={{ padding: '14px 16px 28px', maxWidth: 920, margin: '0 auto' }}>
+        {/* NLP Search */}
+        <div className="card">
+          <NLPSearch
+            onSelectRoom={(nodeId) => setSelectedDestination(nodeId)}
+            currentNodeId={currentNode.id}
+          />
+        </div>
+
         {/* Destination selector */}
         <div className="card">
           <label style={{ fontWeight: 700, fontSize: 12, color: 'var(--accent-light)', marginBottom: 10, display: 'block', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            Куда вам нужно?
+            Или выберите вручную
           </label>
           <div className="select-wrapper">
             <select
@@ -155,7 +164,20 @@ export default function NavigatePage() {
         {pathResult && (
           <div className={`route-info slide-down ${pathResult.floors.length > 1 ? 'multi' : 'success'}`} style={{ marginBottom: 12 }}>
             {pathResult.floors.length > 1 ? (
-              <span>🚶 Маршрут через этажи: <strong>{pathResult.floors.join(' → ')}</strong>. Используйте лестницу.</span>
+              <span>🚶 Маршрут через этажи:{' '}
+                {pathResult.floors.map((f, i) => (
+                  <span key={f}>
+                    <strong
+                      style={{ cursor: 'pointer', textDecoration: f === viewFloor ? 'underline' : 'none' }}
+                      onClick={() => setViewFloor(f)}
+                    >
+                      {f}
+                    </strong>
+                    {i < pathResult.floors.length - 1 && ' → '}
+                  </span>
+                ))}
+                . Используйте лестницу.
+              </span>
             ) : (
               <span>🚶 Следуйте по пунктирной линии на карте.</span>
             )}
