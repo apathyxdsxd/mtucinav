@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { qrPoints } from '../data/floors';
 
+const LOGO_URL = 'https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg';
+
 export default function QRCodesPage() {
   const baseUrl = window.location.origin;
   const [filterFloor, setFilterFloor] = useState<number>(0);
@@ -26,7 +28,10 @@ export default function QRCodesPage() {
   return (
     <div className="fade-in">
       <div className="header">
-        <h1><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="МТУСИ" style={{ height: 28, filter: 'brightness(0) invert(1)' }} /> МТУСИ Навигатор</h1>
+        <h1>
+          <img src={LOGO_URL} alt="МТУСИ" style={{ height: 28, filter: 'brightness(0) invert(1)' }} />
+          МТУСИ Навигатор
+        </h1>
         <p>QR-коды для размещения в здании</p>
       </div>
 
@@ -36,7 +41,7 @@ export default function QRCodesPage() {
             <span className="stats-badge">🏫 {qrPoints.length} QR-кодов</span>
             <span className="stats-badge">📚 {totalRooms} аудиторий</span>
             <span className="stats-badge">🚶 {totalOther} узлов</span>
-            <code style={{ fontSize: 11, background: 'var(--primary-bg)', color: 'var(--primary-dark)', padding: '4px 8px', borderRadius: 6, fontWeight: 600, marginLeft: 4 }}>{baseUrl}</code>
+            <code style={{ fontSize: 11, background: 'rgba(168,85,247,0.15)', color: 'var(--accent-light)', padding: '4px 10px', borderRadius: 6, fontWeight: 600, marginLeft: 4 }}>{baseUrl}</code>
           </div>
 
           <div className="filters">
@@ -83,6 +88,8 @@ export default function QRCodesPage() {
                         size={150}
                         level="M"
                         includeMargin
+                        bgColor="transparent"
+                        fgColor="#E2D9F3"
                       />
                       <div className="qr-hint">Отсканируйте для навигации</div>
                       <div className="qr-url">{url}</div>
