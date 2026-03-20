@@ -8,6 +8,8 @@ Endpoints:
   GET  /api/model-info             — информация о модели (для защиты диплома)
 """
 
+import os
+
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -40,21 +42,35 @@ class SearchResult(BaseModel):
     name: str
     score: float
     confidence: str
+    corrected_query: str | None = None
 
 
 class SearchResponse(BaseModel):
     query: str
+    corrected_query: str | None = None
     results: list[SearchResult]
     total_found: int
 
 
 @app.on_event("startup")
 async def startup():
-    """Загрузка/обучение модели при старте сервера."""
+    """Загрузка модели из кэша или обучение при первом запуске."""
     global train_metrics
-    train_metrics = engine.train()
-    engine.save_model()
-    print(f"Model loaded: {train_metrics}")
+    model_path = os.path.join(os.path.dirname(__file__), "data", "model.joblib")
+
+    if os.path.exists(model_path):
+        engine.load_model(model_path)
+        print(f"Model loaded from cache: {model_path}")
+    else:
+        train_metrics = engine.train()
+        engine.save_model(model_path)
+        print(f"Model trained and saved: {train_metrics}")
+
+    train_metrics = {
+        "vocabulary_size": len(engine.vectorizer.vocabulary_),
+        "documents_count": len(engine.rooms),
+        "matrix_shape": list(engine.tfidf_matrix.shape),
+    }
 
 
 @app.get("/api/search", response_model=SearchResponse)
@@ -71,8 +87,10 @@ async def search_rooms(
     - "базы данных SQL" → ауд. 302
     """
     results = engine.search(q, top_k=top_k)
+    corrected = results[0].get("corrected_query") if results else None
     return SearchResponse(
         query=q,
+        corrected_query=corrected,
         results=results,
         total_found=len(results),
     )
@@ -88,6 +106,15 @@ async def get_rooms():
 async def health():
     """Проверка состояния сервера."""
     return {"status": "ok", "model_loaded": engine.is_trained}
+
+
+@app.post("/api/retrain")
+async def retrain():
+    """Принудительное переобучение модели (сбрасывает кэш)."""
+    global train_metrics
+    train_metrics = engine.train()
+    engine.save_model()
+    return {"status": "retrained", "metrics": train_metrics}
 
 
 @app.get("/api/model-info")

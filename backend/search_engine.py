@@ -10,6 +10,7 @@ NLP-поиск аудиторий на основе TF-IDF + Cosine Similarity.
 import json
 import os
 import re
+from difflib import get_close_matches
 from pathlib import Path
 
 import joblib
@@ -87,6 +88,40 @@ class RoomSearchEngine:
             "matrix_shape": list(self.tfidf_matrix.shape),
         }
 
+    def _correct_query(self, query: str) -> tuple[str, bool]:
+        """Исправление опечаток в запросе на основе словаря модели.
+
+        Для каждого слова запроса, которого нет в словаре TF-IDF,
+        ищет ближайшее совпадение через difflib (расстояние Ратклиффа-Оберхелпа).
+
+        Returns:
+            (исправленный запрос, был ли исправлен)
+        """
+        if not self.vectorizer:
+            return query, False
+
+        vocabulary = set(self.vectorizer.vocabulary_.keys())
+        # Только unigram-слова для корректировки
+        vocab_words = {w for w in vocabulary if " " not in w and len(w) >= 3}
+
+        words = query.split()
+        corrected = []
+        was_corrected = False
+
+        for word in words:
+            if word in vocabulary or len(word) < 3:
+                corrected.append(word)
+                continue
+
+            matches = get_close_matches(word, vocab_words, n=1, cutoff=0.7)
+            if matches:
+                corrected.append(matches[0])
+                was_corrected = True
+            else:
+                corrected.append(word)
+
+        return " ".join(corrected), was_corrected
+
     def search(self, query: str, top_k: int = 5) -> list[dict]:
         """Поиск аудиторий по текстовому запросу.
 
@@ -105,8 +140,11 @@ class RoomSearchEngine:
         if not query_clean:
             return []
 
+        # Исправление опечаток
+        query_corrected, was_corrected = self._correct_query(query_clean)
+
         # Преобразуем запрос в TF-IDF вектор
-        query_vector = self.vectorizer.transform([query_clean])
+        query_vector = self.vectorizer.transform([query_corrected])
 
         # Вычисляем cosine similarity между запросом и всеми аудиториями
         similarities = cosine_similarity(query_vector, self.tfidf_matrix).flatten()
@@ -129,6 +167,10 @@ class RoomSearchEngine:
                     "score": round(score, 4),
                     "confidence": _score_to_confidence(score),
                 })
+
+        # Если запрос был исправлен и нашлись результаты — сообщаем
+        if was_corrected and results:
+            results[0]["corrected_query"] = query_corrected
 
         return results
 
