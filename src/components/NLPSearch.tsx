@@ -19,6 +19,7 @@ const API_URL = 'http://localhost:8000';
 export default function NLPSearch({ onSelectRoom, currentNodeId }: NLPSearchProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [correctedQuery, setCorrectedQuery] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [backendAvailable, setBackendAvailable] = useState<boolean | null>(null);
@@ -56,6 +57,7 @@ export default function NLPSearch({ onSelectRoom, currentNodeId }: NLPSearchProp
       const res = await fetch(`${API_URL}/api/search?q=${encodeURIComponent(q)}&top_k=5`);
       const data = await res.json();
       setResults(data.results);
+      setCorrectedQuery(data.corrected_query || null);
       setIsOpen(data.results.length > 0);
     } catch {
       setResults([]);
@@ -110,6 +112,19 @@ export default function NLPSearch({ onSelectRoom, currentNodeId }: NLPSearchProp
           </button>
         )}
       </div>
+
+      {isOpen && correctedQuery && (
+        <button
+          className="nlp-corrected"
+          onClick={() => {
+            setQuery(correctedQuery);
+            setCorrectedQuery(null);
+            doSearch(correctedQuery);
+          }}
+        >
+          Вы имели в виду: <strong>{correctedQuery}</strong>
+        </button>
+      )}
 
       {isOpen && results.length > 0 && (
         <div className="nlp-results">

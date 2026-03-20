@@ -1388,6 +1388,33 @@ a:hover {
   color: var(--text-primary);
 }
 
+.nlp-corrected {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  margin-top: 4px;
+  font-size: 0.82rem;
+  color: var(--accent-light);
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.nlp-corrected:hover {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+.nlp-corrected strong {
+  color: var(--accent-lighter);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+}
+
 .nlp-results {
   position: absolute;
   top: 100%;
