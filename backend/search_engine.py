@@ -43,10 +43,13 @@ class RoomSearchEngine:
         """
         corpus = []
         for room in self.rooms:
+            keywords = room.get("keywords", "")
             text_parts = [
                 room["name"],
                 room["label"],
-                room.get("keywords", ""),
+                keywords,
+                keywords,
+                keywords,
             ]
             # Объединяем и приводим к нижнему регистру
             combined = " ".join(text_parts).lower()
@@ -113,8 +116,10 @@ class RoomSearchEngine:
 
         results = []
         for idx in top_indices:
-            score = float(similarities[idx])
-            if score > 0.0:  # Только ненулевые совпадения
+            raw_score = float(similarities[idx])
+            if raw_score > 0.0:
+                # Усиливаем score но сохраняем разницу между хорошими и плохими совпадениями
+                score = min(raw_score * 5, 0.99)
                 room = self.rooms[idx]
                 results.append({
                     "node_id": room["node_id"],
@@ -156,9 +161,9 @@ class RoomSearchEngine:
 
 def _score_to_confidence(score: float) -> str:
     """Преобразование score в уровень уверенности."""
-    if score >= 0.5:
+    if score >= 0.7:
         return "high"
-    elif score >= 0.2:
+    elif score >= 0.4:
         return "medium"
     else:
         return "low"

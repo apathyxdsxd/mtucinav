@@ -71,7 +71,9 @@ export default function NavigatePage() {
           </h1>
         </div>
         <div className="landing fade-in">
-          <div className="landing-icon">🗺️</div>
+          <div className="landing-icon" style={{ background: 'transparent', width: 'auto', height: 'auto' }}>
+            <img src="/mtusi-logo.png" alt="МТУСИ" style={{ height: 100, borderRadius: 16 }} />
+          </div>
           <h2>Добро пожаловать!</h2>
           <p>
             Отсканируйте QR-код в здании университета, чтобы определить ваше местоположение и построить маршрут.
@@ -124,7 +126,7 @@ export default function NavigatePage() {
 
       <div style={{ padding: '14px 16px 28px', maxWidth: 920, margin: '0 auto' }}>
         {/* NLP Search */}
-        <div className="card">
+        <div className="card" style={{ position: 'relative', zIndex: 10, overflow: 'visible' }}>
           <NLPSearch
             onSelectRoom={(nodeId) => setSelectedDestination(nodeId)}
             currentNodeId={currentNode.id}
@@ -164,7 +166,7 @@ export default function NavigatePage() {
         {pathResult && (
           <div className={`route-info slide-down ${pathResult.floors.length > 1 ? 'multi' : 'success'}`} style={{ marginBottom: 12 }}>
             {pathResult.floors.length > 1 ? (
-              <span>🚶 Маршрут через этажи:{' '}
+              <span>Маршрут через этажи:{' '}
                 {pathResult.floors.map((f, i) => (
                   <span key={f}>
                     <strong
@@ -179,7 +181,7 @@ export default function NavigatePage() {
                 . Используйте лестницу.
               </span>
             ) : (
-              <span>🚶 Следуйте по пунктирной линии на карте.</span>
+              <span>Следуйте по пунктирной линии на карте.</span>
             )}
           </div>
         )}

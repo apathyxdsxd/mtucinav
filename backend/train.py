@@ -21,14 +21,14 @@ def main():
     print("=" * 60)
 
     metrics = engine.train()
-    print(f"\n📊 Метрики обучения:")
+    print(f"\nMetrics:")
     print(f"   Размер словаря:     {metrics['vocabulary_size']}")
     print(f"   Документов:         {metrics['documents_count']}")
     print(f"   Матрица TF-IDF:     {metrics['matrix_shape']}")
 
     # 2. Сохранение модели
     engine.save_model()
-    print(f"\n💾 Модель сохранена в data/model.joblib")
+    print(f"\nModel saved to data/model.joblib")
 
     # 3. Тестовые запросы
     print(f"\n{'=' * 60}")
@@ -70,7 +70,7 @@ def main():
         if is_correct_3:
             correct_at_3 += 1
 
-        status = "✅" if is_correct_1 else ("🟡" if is_correct_3 else "❌")
+        status = "[OK]" if is_correct_1 else ("[~]" if is_correct_3 else "[X]")
 
         print(f"\n  {status} Запрос: \"{query}\"")
         print(f"     Ожидалось: {expected_id}")
@@ -87,7 +87,7 @@ def main():
     print("=" * 60)
     print(f"\n  Precision@1:  {correct_at_1}/{total} = {p1:.1%}")
     print(f"  Precision@3:  {correct_at_3}/{total} = {p3:.1%}")
-    print(f"\n  {'✅ Отличное качество!' if p1 >= 0.8 else '⚠️ Требуется доработка описаний аудиторий'}")
+    print(f"\n  {'Great quality!' if p1 >= 0.8 else 'Needs improvement'}")
 
 
 if __name__ == "__main__":

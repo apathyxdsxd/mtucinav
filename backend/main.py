@@ -54,7 +54,7 @@ async def startup():
     global train_metrics
     train_metrics = engine.train()
     engine.save_model()
-    print(f"✅ Модель загружена: {train_metrics}")
+    print(f"Model loaded: {train_metrics}")
 
 
 @app.get("/api/search", response_model=SearchResponse)

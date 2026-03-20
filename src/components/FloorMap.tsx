@@ -108,8 +108,8 @@ export default function FloorMap({
         {/* Vertical corridors */}
         {corridorNodes.map((c) => (
           <g key={c.id}>
-            <rect x={c.x - 3} y={80 + ROOM_H - 5} width={6} height={280 - 80 - ROOM_H + 10} rx={3} fill="rgba(168,85,247,0.08)" />
-            <rect x={c.x - 3} y={280} width={6} height={420 - 280 - 10} rx={3} fill="rgba(168,85,247,0.08)" />
+            <rect x={c.x - 3} y={80 + ROOM_H / 2} width={6} height={265 - (80 + ROOM_H / 2)} rx={3} fill="rgba(168,85,247,0.08)" />
+            <rect x={c.x - 3} y={295} width={6} height={420 - ROOM_H / 2 - 295} rx={3} fill="rgba(168,85,247,0.08)" />
           </g>
         ))}
 
